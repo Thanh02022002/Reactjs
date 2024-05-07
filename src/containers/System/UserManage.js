@@ -20,6 +20,8 @@ class UserManage extends Component {
                 arrUsers: response.users
             })
         }
+
+        // console.log('get users from node.js: ', response)
     }
 
 
