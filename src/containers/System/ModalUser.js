@@ -24,23 +24,44 @@ class ModalUser extends Component {
         console.log('check child props', this.props);
         console.log('check child open modal', this.props.isOpen)
         return (
-            <Modal isOpen={this.props.isOpen} toggle={() => { this.toggle() }} className={'abcClassName'}>
+            <Modal
+                isOpen={this.props.isOpen}
+                toggle={() => { this.toggle() }}
+                className={'modal-user-container'}
+                size="lg"
+            >
                 <ModalHeader toggle={() => { this.toggle() }}>Create a new user</ModalHeader>
                 <ModalBody>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                    eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-                    minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                    aliquip ex ea commodo consequat. Duis aute irure dolor in
-                    reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                    pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-                    culpa qui officia deserunt mollit anim id est laborum.
+                    <div className='modal-user-body'>
+                        <div className='input-container'>
+                            <label>Email</label>
+                            <input type='text' />
+                        </div>
+                        <div className='input-container'>
+                            <label>Password</label>
+                            <input type='password' />
+                        </div>
+                        <div className='input-container'>
+                            <label>First name</label>
+                            <input type='text' />
+                        </div>
+                        <div className='input-container'>
+                            <label>Last name</label>
+                            <input type='text' />
+                        </div>
+                        <div className='input-container max-width-input'>
+                            <label>Address</label>
+                            <input type='text' />
+                        </div>
+                    </div>
+
                 </ModalBody>
                 <ModalFooter>
-                    <Button color="primary" onClick={() => { this.toggle() }}>
-                        Do Something
+                    <Button color="primary" className='px-3' onClick={() => { this.toggle() }}>
+                        Save changes
                     </Button>{' '}
-                    <Button color="secondary" onClick={() => { this.toggle() }}>
-                        Cancel
+                    <Button color="secondary" className='px-3' onClick={() => { this.toggle() }}>
+                        Close
                     </Button>
                 </ModalFooter>
             </Modal>
