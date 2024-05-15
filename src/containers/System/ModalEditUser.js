@@ -3,12 +3,14 @@ import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { emitter } from '../../utils/emitter';
+import _ from 'lodash';
 
 class ModalEditUser extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
+            id: '',
             email: '',
             password: '',
             firstName: '',
@@ -34,6 +36,18 @@ class ModalEditUser extends Component {
     }
 
     componentDidMount() {
+        let user = this.props.currentUser;
+        //let {currentUser} = this.props;
+        if (user && !_.isEmpty(user)) {
+            this.setState({
+                id: user.id,
+                email: user.email,
+                password: 'hashcode',
+                firstName: user.firstName,
+                lastName: user.lastName,
+                address: user.address
+            })
+        }
         console.log('didmount edit modal', this.props.currentUser)
     }
 
@@ -64,17 +78,16 @@ class ModalEditUser extends Component {
         return isValue;
     }
 
-    handleAddNewUser = () => {
+    handleSaveUser = () => {
         let isValue = this.checkValidateInput();
         if (isValue === true) {
-            //call api create maodel
-            this.props.createNewUser(this.state);
+            //call api edit user maodel
+            this.props.editUser(this.state);
 
         }
     }
 
     render() {
-        console.log('this check', this.props)
         return (
             <Modal
                 isOpen={this.props.isOpen}
@@ -91,6 +104,7 @@ class ModalEditUser extends Component {
                                 type='text'
                                 onChange={(event) => { this.handleOnChangeInput(event, "email") }}
                                 value={this.state.email}
+                                disabled
                             />
                         </div>
                         <div className='input-container'>
@@ -99,6 +113,7 @@ class ModalEditUser extends Component {
                                 type='password'
                                 onChange={(event) => { this.handleOnChangeInput(event, "password") }}
                                 value={this.state.password}
+                                disabled
                             />
                         </div>
                         <div className='input-container'>
@@ -132,8 +147,8 @@ class ModalEditUser extends Component {
                     <Button
                         color="primary"
                         className='px-3'
-                        onClick={() => { this.handleAddNewUser() }}>
-                        Add new
+                        onClick={() => { this.handleSaveUser() }}>
+                        Save change
                     </Button>{' '}
                     <Button color="secondary" className='px-3' onClick={() => { this.toggle() }}>
                         Close
